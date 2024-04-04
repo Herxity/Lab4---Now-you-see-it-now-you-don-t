@@ -43,11 +43,19 @@ end vga_ctrl;
 
 architecture Behavioral of vga_ctrl is
 
-    signal hcounter,vcounter : STD_LOGIC_VECTOR(9 downto 0);
-
+    signal hcounter : STD_LOGIC_VECTOR(9 downto 0):=(others=>'0');
+    signal vcounter : STD_LOGIC_VECTOR(9 downto 0):=(others=>'0');
+    signal vid_sig : std_logic:='0';
+    signal hs_sig : std_logic:='0';
+    signal vs_sig : std_logic:='0';
+    
 begin
     HCOUNT <= hcounter;
     VCOUNT <= vcounter;
+    HS<=hs_sig;
+    VS<=vs_sig;
+    VID<=vid_sig;
+    
     time_counter:process(CLK)
     begin
         if(rising_edge(CLK) and EN ='1') then
@@ -69,19 +77,19 @@ begin
     begin
         if(rising_edge(CLK)) then
             if((to_integer(unsigned(hcounter)) <= 639) and (to_integer(unsigned(vcounter)) <= 479)) then
-                VID <= '1';
+                vid_sig <= '1';
             else
-                VID <= '0';
+                vid_sig <= '0';
             end if;
             if((to_integer(unsigned(hcounter)) >= 656) and (to_integer(unsigned(hcounter)) <= 751)) then
-                HS <= '0';
+                hs_sig <= '0';
             else
-                HS <= '1';
+                hs_sig <= '1';
             end if;
             if((to_integer(unsigned(vcounter)) >= 490) and (to_integer(unsigned(vcounter)) <= 491)) then
-                VS <= '0';
+                vs_sig <= '0';
             else
-                VS <= '1';
+                vs_sig <= '1';
             end if;
         end if;
     end process;

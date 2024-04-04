@@ -32,7 +32,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity image_top is
-  Port ( CLK:in STD_LOGIC;
+    Port ( CLK:in STD_LOGIC;
          VGA_HS, VGA_VS: out STD_LOGIC;
          VGA_R,VGA_B: out STD_LOGIC_VECTOR(4 downto 0);
          VGA_G: out STD_LOGIC_VECTOR(5 downto 0));
