@@ -49,29 +49,22 @@ begin
     addr_proc:process(CLK)
     begin
         if(rising_edge(CLK)) then
-            if(EN ='1' and VID = '1' and to_integer(unsigned(HCOUNT))<480) then
-                addr_counter<=std_logic_vector(to_unsigned(to_integer(unsigned(HCOUNT))+1,18));
-            end if;
-            if(VS ='0') then
-                addr_counter<=(others=>'0');
-            end if;
-        end if;
-    end process;
-
-    rgb_proc:process(CLK)
-    begin 
-        if(rising_edge(CLK)) then
-            if(VID = '1' and EN = '1' and to_integer(unsigned(HCOUNT))<480) then
+            if(EN='1' and VID = '1' and unsigned(HCOUNT)<481) then
                 R <= PIXEL(7 downto 5) & "00";
                 G <= PIXEL(4 downto 2) & "000";
                 B <= PIXEL(1 downto 0) & "000";
+                addr_counter<=std_logic_vector(unsigned(addr_counter)+1);
             else
                 R <= (others=>'0');
                 G <= (others=>'0');
                 B <= (others=>'0');
             end if;
+            if(VS ='0') then
+                addr_counter<=(others=>'0');
+            end if;            
         end if;
     end process;
+
 
 
 

@@ -80,7 +80,7 @@ architecture Behavioral of image_top is
     signal hcount:  STD_LOGIC_VECTOR(9 downto 0);
     signal vcount:  STD_LOGIC_VECTOR(9 downto 0);
 begin
-
+    VGA_VS<=vs;
     div:clock_div
         port map(
             clk=>CLK,
@@ -114,6 +114,6 @@ begin
              VCOUNT=>vcount,
              VID=>vid,
              HS=>VGA_HS,
-             VS=>VGA_VS);
+             VS=>vs);
 
 end Behavioral;

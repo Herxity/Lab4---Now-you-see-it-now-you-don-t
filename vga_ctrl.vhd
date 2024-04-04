@@ -48,35 +48,28 @@ architecture Behavioral of vga_ctrl is
     signal vid_sig : std_logic:='0';
     signal hs_sig : std_logic:='0';
     signal vs_sig : std_logic:='0';
-    
+
 begin
     HCOUNT <= hcounter;
     VCOUNT <= vcounter;
     HS<=hs_sig;
     VS<=vs_sig;
     VID<=vid_sig;
-    
+
     time_counter:process(CLK)
     begin
         if(rising_edge(CLK) and EN ='1') then
             if(to_integer(unsigned(hcounter)) < 799) then
-                hcounter <= std_logic_vector(to_unsigned(to_integer(unsigned(hcounter)) + 1,10));
+                hcounter <= std_logic_vector(unsigned(hcounter)+ 1);
             else
                 hcounter <= (others=>'0');
                 if(to_integer(unsigned(vcounter)) < 524) then
-                    vcounter <= std_logic_vector(to_unsigned(to_integer(unsigned(vcounter)) + 1,10));
+                    vcounter <= std_logic_vector(unsigned(vcounter) + 1);
                 else
                     vcounter <= (others=>'0');
                 end if;
             end if;
-
-        end if;
-    end process;
-
-    vs_calculator:process(CLK)
-    begin
-        if(rising_edge(CLK)) then
-            if((to_integer(unsigned(hcounter)) <= 639) and (to_integer(unsigned(vcounter)) <= 479)) then
+            if((to_integer(unsigned(hcounter)) <= 639) and (to_integer(unsigned(hcounter)) >= 0) and (to_integer(unsigned(vcounter)) <= 479)and (to_integer(unsigned(vcounter)) >= 0)) then
                 vid_sig <= '1';
             else
                 vid_sig <= '0';
