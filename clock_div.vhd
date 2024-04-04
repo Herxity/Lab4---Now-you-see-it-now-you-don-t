@@ -45,8 +45,9 @@ begin
     begin
     
         if rising_edge(clk) then
-            --125Mhz/5 = 25Mhz
-            if (unsigned(counter) < 4) then
+            --125Mhz/5 = 25Mhz, use 4 as 5th clock is in the else
+            --100Mhz/4 = 25 Mhz, use 3 as 4th clock is in the else (BASYS 3)
+            if (unsigned(counter) < 3) then
                 counter <= std_logic_vector(unsigned(counter) + 1);
                 div <='0'; --Happens at first countup after we set counter = 0
             else

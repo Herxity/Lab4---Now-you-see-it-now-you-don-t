@@ -80,9 +80,9 @@ begin
             en=>tb_div,
             hcount=>tb_hcount,
             vcount=>tb_vcount,
-            vid
-            hs
-            vs
+            vid => tb_vid,
+            hs=>tb_hs,
+            vs=>tb_vs
         );
 
 end Behavioral;

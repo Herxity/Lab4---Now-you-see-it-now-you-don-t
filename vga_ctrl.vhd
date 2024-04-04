@@ -48,15 +48,15 @@ architecture Behavioral of vga_ctrl is
 begin
     HCOUNT <= hcounter;
     VCOUNT <= vcounter;
-    time_coutner:process(CLK)
+    time_counter:process(CLK)
     begin
         if(rising_edge(CLK) and EN ='1') then
             if(to_integer(unsigned(hcounter)) < 799) then
-                hcounter <= std_logic_vector(to_integer(unsigned(hcounter)) + 1);
+                hcounter <= std_logic_vector(to_unsigned(to_integer(unsigned(hcounter)) + 1,10));
             else
                 hcounter <= (others=>'0');
                 if(to_integer(unsigned(vcounter)) < 524) then
-                    vcounter <= std_logic_vector(to_integer(unsigned(vcounter)) + 1);
+                    vcounter <= std_logic_vector(to_unsigned(to_integer(unsigned(vcounter)) + 1,10));
                 else
                     vcounter <= (others=>'0');
                 end if;
@@ -78,7 +78,7 @@ begin
             else
                 HS <= '1';
             end if;
-            if((to_integer(unsigned(vcounter)) >= 490) and (to_integer(unsigned(vcounter)) <= 490)) then
+            if((to_integer(unsigned(vcounter)) >= 490) and (to_integer(unsigned(vcounter)) <= 491)) then
                 VS <= '0';
             else
                 VS <= '1';
